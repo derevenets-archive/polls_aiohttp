@@ -1,4 +1,4 @@
-from src.views import index
+from views import index
 
 
 def setup_routes(app):
