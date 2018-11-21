@@ -10,6 +10,8 @@ aiohttp = "*"
 ipython = "*"
 pyyaml = "*"
 sqlalchemy = "*"
+aiopg = {version = "*", extras = ["sa"]}
+"psycopg2-binary" = "*"
 
 [requires]
 python_version = "3.6"
