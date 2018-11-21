@@ -12,6 +12,7 @@ pyyaml = "*"
 sqlalchemy = "*"
 aiopg = {version = "*", extras = ["sa"]}
 "psycopg2-binary" = "*"
+"aiohttp-jinja2" = "*"
 
 [requires]
 python_version = "3.6"

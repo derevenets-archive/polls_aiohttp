@@ -1,4 +1,5 @@
 import aiopg.sa
+
 from .exeptions import RecordNotFound
 
 
@@ -25,9 +26,8 @@ async def get_question(conn, question_id):
         raise RecordNotFound(msg)
     result = await conn.execute(
         choice.select()
-        .where(choice.c.id == question_id)
-        .order_by(choice.c.id)
+            .where(choice.c.id == question_id)
+            .order_by(choice.c.id)
     )
     choice_records = await result.fetchall()
     return question_record, choice_records
-
