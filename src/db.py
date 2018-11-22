@@ -1,12 +1,12 @@
 import aiopg.sa
 
-from .exceptions import RecordNotFound
+from exceptions import RecordNotFound
 
 
 async def init_pg(app):
     """For making DB queries we need an engine instance"""
     pg_config = app['config']['postgres']
-    engine = await aiopg.sa.create_engine(**pg_config)  # TODO: explicitly?
+    engine = await aiopg.sa.create_engine(**pg_config)
     app['db'] = engine
 
 
@@ -22,8 +22,7 @@ async def get_question(conn, question_id):
     )
     question_record = await result.first()
     if not question_record:
-        msg = f"Question with id: {question_id} does not exists"
-        raise RecordNotFound(msg)
+        raise RecordNotFound(f"Question with id: {question_id} does not exists")
     result = await conn.execute(
         choice.select()
             .where(choice.c.id == question_id)
