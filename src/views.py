@@ -32,12 +32,10 @@ async def poll(request):
 async def results(request):
     async with request.app['db'].acquire() as conn:
         question_id = request.match_info['question_id']
-
         try:
             question, choices = await get_question(conn, question_id)
         except RecordNotFound as e:
             raise web.HTTPNotFound(text=str(e))
-
         return {
             'question': question,
             'choices': choices
@@ -49,12 +47,12 @@ async def vote(request):
         question_id = request.match_info['question_id']
         data = await request.post()
         try:
-            choice_id = int(data['choice'])
+            choice_id = data['choice']
         except (KeyError, TypeError, ValueError) as e:
             raise web.HTTPBadRequest(
                 text='You have not specified choice value') from e
         try:
-            await make_vote(conn, int(question_id), choice_id)
+            await make_vote(conn, question_id, choice_id)
         except RecordNotFound as e:
             raise web.HTTPNotFound(text=str(e))
         url = request.app.router['results'].url_for(question_id=question_id)

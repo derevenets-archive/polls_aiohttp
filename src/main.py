@@ -2,9 +2,9 @@ import aiohttp_jinja2
 import jinja2
 from aiohttp import web
 from db import init_pg, close_pg
+from middlewares import setup_middlewares
 from routes import setup_routes
 from settings import config
-from middlewares import setup_middlewares
 
 
 async def init_app():

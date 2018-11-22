@@ -1,7 +1,8 @@
 import pathlib
+
 import yaml
 
-BASE_DIR = pathlib.Path(__file__).parent.parent
+BASE_DIR = pathlib.Path(__file__).parent.parent  # 'polls_aiohttp'
 config_path = BASE_DIR / 'config' / 'polls_aiohttp.yaml'
 
 
