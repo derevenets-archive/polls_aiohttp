@@ -26,8 +26,21 @@ async def get_question(conn, question_id):
         raise RecordNotFound(f"Question with id: {question_id} does not exists")
     result = await conn.execute(
         choice.select()
-            .where(choice.c.id == question_id)
+            .where(choice.c.question_id == question_id)
             .order_by(choice.c.id)
     )
     choice_records = await result.fetchall()
     return question_record, choice_records
+
+
+async def make_vote(conn, question_id, choice_id):
+    result = await conn.execute(
+        choice.update()
+            .returning(*choice.c)
+            .where(choice.c.question_id == question_id)
+            .where(choice.c.id == choice_id)
+            .values(votes=choice.c.votes + 1))
+    record = await result.fetchone()
+    if not record:
+        msg = "Question with id: {} or choice id: {} does not exists"
+        raise RecordNotFound(msg.format(question_id, choice_id))
