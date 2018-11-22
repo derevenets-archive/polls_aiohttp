@@ -19,7 +19,7 @@ async def poll(request):
     async with request.app['db'].acquire() as conn:
         question_id = request.match_info['question_id']
         try:
-            question, choices = get_question(conn, question_id)
+            question, choices = await get_question(conn, question_id)
         except RecordNotFound as e:
             raise web.HTTPNotFound(text=str(e))
         return {

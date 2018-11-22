@@ -1,6 +1,7 @@
 import aiopg.sa
 
 from exceptions import RecordNotFound
+from models import question, choice
 
 
 async def init_pg(app):
