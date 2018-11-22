@@ -4,6 +4,7 @@ from aiohttp import web
 from db import init_pg, close_pg
 from routes import setup_routes
 from settings import config
+from middlewares import setup_middlewares
 
 app = web.Application()
 
@@ -14,5 +15,6 @@ app.on_cleanup.append(close_pg)
 aiohttp_jinja2.setup(app, loader=jinja2.PackageLoader('src', 'templates'))
 
 setup_routes(app)
+setup_middlewares(app)
 app['config'] = config
 web.run_app(app)
