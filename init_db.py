@@ -1,8 +1,7 @@
 from sqlalchemy import create_engine, MetaData
 
-from src.settings import config
 from src.models import question, choice
-
+from src.settings import config
 
 DSN = "postgresql://{user}:{password}@{host}:{port}/{database}"
 
@@ -15,8 +14,10 @@ def create_tables(engine):
 def sample_data(engine):
     conn = engine.connect()
     conn.execute(question.insert(), [
-        {'question_text': 'What\'s new?',
-         'pub_date': '2015-12-15 17:17:49.629+02'}
+        {
+            'question_text': 'What\'s new?',
+            'pub_date': '2015-12-15 17:17:49.629+02'
+        }
     ])
     conn.execute(choice.insert(), [
         {'choice_text': 'Not much', 'votes': 0, 'question_id': 1},
