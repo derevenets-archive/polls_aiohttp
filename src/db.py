@@ -1,6 +1,6 @@
 import aiopg.sa
 
-from .exeptions import RecordNotFound
+from .exceptions import RecordNotFound
 
 
 async def init_pg(app):
